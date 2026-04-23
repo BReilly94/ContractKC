@@ -14,6 +14,13 @@
     { "path": "../../packages/domain" },
     { "path": "../../packages/secrets" },
     { "path": "../../packages/auth" },
-    { "path": "../../packages/audit" }
+    { "path": "../../packages/audit" },
+    { "path": "../../packages/ai" },
+    { "path": "../../packages/storage" },
+    { "path": "../../packages/queue" },
+    { "path": "../../packages/search" },
+    { "path": "../../packages/scanning" },
+    { "path": "../../packages/ocr" },
+    { "path": "../../packages/runtime" }
   ]
 }

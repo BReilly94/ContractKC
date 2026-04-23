@@ -1,6 +1,7 @@
 import type { AuditLogEntryId, UserId } from './ids.js';
 
 export type AuditAction =
+  // Contract + summary + access
   | 'contract.create'
   | 'contract.update'
   | 'contract.lifecycle.transition'
@@ -9,19 +10,60 @@ export type AuditAction =
   | 'contract_access.grant'
   | 'contract_access.revoke'
   | 'contract_access.revocation.reverse'
+  // Aliases, parties, users
   | 'email_alias.create'
   | 'email_alias.deactivate'
+  | 'email_alias.rename'
   | 'party.create'
-  | 'user.create';
+  | 'user.create'
+  // Documents
+  | 'document.upload'
+  | 'document.version.create'
+  | 'document.tag.add'
+  | 'document.tag.remove'
+  | 'document.malware_scan.clean'
+  | 'document.malware_scan.quarantine'
+  | 'document.ocr.complete'
+  | 'document.ocr.failed'
+  | 'document.decrypt'
+  // Email pipeline
+  | 'email.ingest.accept'
+  | 'email.ingest.duplicate'
+  | 'email.sender_trust.change'
+  | 'email_review_queue.create'
+  | 'email_review_queue.approve'
+  | 'email_review_queue.reject'
+  | 'email_review_queue.action'
+  | 'shared_link_capture.create'
+  | 'shared_link_capture.complete'
+  | 'calendar_event.create'
+  | 'calendar_event.promote'
+  | 'inbound_email_event.receive'
+  | 'inbound_email_event.fail';
 
 export type AuditEntityType =
+  // Contract layer
   | 'Contract'
   | 'ContractSummary'
   | 'ContractAccess'
   | 'ContractAccessRevocation'
+  // People / addressing
   | 'EmailAlias'
   | 'Party'
-  | 'User';
+  | 'User'
+  // Documents
+  | 'Document'
+  | 'DocumentVersion'
+  | 'DocumentTag'
+  | 'Tag'
+  // Email pipeline
+  | 'Email'
+  | 'EmailThread'
+  | 'SenderTrustEntry'
+  | 'EmailReviewQueueItem'
+  | 'SharedLinkCapture'
+  | 'CalendarEvent'
+  | 'InboundEmailEvent';
 
 export interface AuditLogEntry {
   readonly id: AuditLogEntryId;

@@ -5,8 +5,13 @@ import { GlobalsModule } from './common/globals.module.js';
 import { CorrelationMiddleware } from './common/correlation.middleware.js';
 import { GlobalExceptionFilter } from './common/exception.filter.js';
 import { ContractsModule } from './contracts/contracts.module.js';
+import { DocumentsModule } from './documents/documents.module.js';
+import { EmailsModule } from './emails/emails.module.js';
 import { HealthModule } from './health/health.module.js';
 import { PartiesModule } from './parties/parties.module.js';
+import { ReviewQueueModule } from './review-queue/review-queue.module.js';
+import { SenderTrustModule } from './sender-trust/sender-trust.module.js';
+import { TagsModule } from './tags/tags.module.js';
 import { UsersModule } from './users/users.module.js';
 
 @Module({
@@ -17,6 +22,11 @@ import { UsersModule } from './users/users.module.js';
     AccessModule,
     PartiesModule,
     UsersModule,
+    DocumentsModule,
+    EmailsModule,
+    ReviewQueueModule,
+    SenderTrustModule,
+    TagsModule,
   ],
   providers: [
     {

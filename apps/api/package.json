@@ -14,11 +14,18 @@
     "db:seed": "tsx --env-file=../../.env src/db/seed.ts"
   },
   "dependencies": {
+    "@ckb/ai": "workspace:*",
     "@ckb/audit": "workspace:*",
     "@ckb/auth": "workspace:*",
     "@ckb/domain": "workspace:*",
+    "@ckb/ocr": "workspace:*",
+    "@ckb/queue": "workspace:*",
+    "@ckb/runtime": "workspace:*",
+    "@ckb/scanning": "workspace:*",
+    "@ckb/search": "workspace:*",
     "@ckb/secrets": "workspace:*",
     "@ckb/shared": "workspace:*",
+    "@ckb/storage": "workspace:*",
     "@nestjs/common": "^10.3.7",
     "@nestjs/core": "^10.3.7",
     "@nestjs/platform-express": "^10.3.7",

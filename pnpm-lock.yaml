@@ -50,6 +50,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@ckb/ai':
+        specifier: workspace:*
+        version: link:../../packages/ai
       '@ckb/audit':
         specifier: workspace:*
         version: link:../../packages/audit
@@ -59,12 +62,30 @@ importers:
       '@ckb/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@ckb/ocr':
+        specifier: workspace:*
+        version: link:../../packages/ocr
+      '@ckb/queue':
+        specifier: workspace:*
+        version: link:../../packages/queue
+      '@ckb/runtime':
+        specifier: workspace:*
+        version: link:../../packages/runtime
+      '@ckb/scanning':
+        specifier: workspace:*
+        version: link:../../packages/scanning
+      '@ckb/search':
+        specifier: workspace:*
+        version: link:../../packages/search
       '@ckb/secrets':
         specifier: workspace:*
         version: link:../../packages/secrets
       '@ckb/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@ckb/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
       '@nestjs/common':
         specifier: ^10.3.7
         version: 10.4.22(reflect-metadata@0.2.2)(rxjs@7.8.2)

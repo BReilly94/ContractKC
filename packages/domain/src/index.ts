@@ -1,6 +1,7 @@
 export * from './access.js';
 export * from './audit.js';
 export * from './contract.js';
+export * from './document.js';
 export * from './email.js';
 export * from './ids.js';
 export * from './party.js';
