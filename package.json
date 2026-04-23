@@ -19,12 +19,13 @@
     "dev:workers": "pnpm --filter @ckb/workers run dev",
     "dev:ingestion": "pnpm --filter @ckb/ingestion run dev",
     "check:secrets": "tsx scripts/check-secrets.ts",
+    "check:ai": "pnpm --filter @ckb/ai run regression",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "pnpm -r typecheck",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "check": "pnpm lint && pnpm typecheck && pnpm check:secrets && pnpm test && pnpm build",
+    "check": "pnpm lint && pnpm typecheck && pnpm check:secrets && pnpm test && pnpm build && pnpm check:ai",
     "format": "prettier --write ."
   },
   "devDependencies": {
