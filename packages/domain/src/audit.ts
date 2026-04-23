@@ -47,7 +47,12 @@ export type AuditAction =
   | 'deadline.update'
   | 'deadline.transition'
   | 'deadline.complete'
-  | 'deadline.cancel';
+  | 'deadline.cancel'
+  // Clauses
+  | 'clause.extract'
+  | 'clause.verify'
+  | 'clause_relationship.create'
+  | 'clause_relationship.verify';
 
 export type AuditEntityType =
   // Contract layer
@@ -72,7 +77,9 @@ export type AuditEntityType =
   | 'SharedLinkCapture'
   | 'CalendarEvent'
   | 'InboundEmailEvent'
-  | 'Deadline';
+  | 'Deadline'
+  | 'Clause'
+  | 'ClauseRelationship';
 
 export interface AuditLogEntry {
   readonly id: AuditLogEntryId;
