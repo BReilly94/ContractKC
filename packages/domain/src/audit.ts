@@ -39,7 +39,15 @@ export type AuditAction =
   | 'calendar_event.create'
   | 'calendar_event.promote'
   | 'inbound_email_event.receive'
-  | 'inbound_email_event.fail';
+  | 'inbound_email_event.fail'
+  // Deadlines
+  | 'deadline.extract'
+  | 'deadline.create'
+  | 'deadline.verify'
+  | 'deadline.update'
+  | 'deadline.transition'
+  | 'deadline.complete'
+  | 'deadline.cancel';
 
 export type AuditEntityType =
   // Contract layer
@@ -63,7 +71,8 @@ export type AuditEntityType =
   | 'EmailReviewQueueItem'
   | 'SharedLinkCapture'
   | 'CalendarEvent'
-  | 'InboundEmailEvent';
+  | 'InboundEmailEvent'
+  | 'Deadline';
 
 export interface AuditLogEntry {
   readonly id: AuditLogEntryId;

@@ -5,6 +5,7 @@ import { GlobalsModule } from './common/globals.module.js';
 import { CorrelationMiddleware } from './common/correlation.middleware.js';
 import { GlobalExceptionFilter } from './common/exception.filter.js';
 import { ContractsModule } from './contracts/contracts.module.js';
+import { DeadlinesModule } from './deadlines/deadlines.module.js';
 import { DocumentsModule } from './documents/documents.module.js';
 import { EmailsModule } from './emails/emails.module.js';
 import { HealthModule } from './health/health.module.js';
@@ -25,6 +26,7 @@ import { UsersModule } from './users/users.module.js';
     AccessModule,
     PartiesModule,
     UsersModule,
+    DeadlinesModule,
     DocumentsModule,
     EmailsModule,
     QaModule,
