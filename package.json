@@ -1,0 +1,43 @@
+{
+  "name": "ckb",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev:up": "docker compose -f infra/local/docker-compose.yml up -d",
+    "dev:down": "docker compose -f infra/local/docker-compose.yml down",
+    "dev:logs": "docker compose -f infra/local/docker-compose.yml logs -f",
+    "build": "pnpm -r build",
+    "clean": "pnpm -r clean",
+    "db:migrate": "pnpm --filter @ckb/api run db:migrate",
+    "db:seed": "pnpm --filter @ckb/api run db:seed",
+    "dev:api": "pnpm --filter @ckb/api run dev",
+    "dev:web": "pnpm --filter @ckb/web run dev",
+    "check:secrets": "tsx scripts/check-secrets.ts",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "pnpm -r typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "check": "pnpm lint && pnpm typecheck && pnpm check:secrets && pnpm test && pnpm build",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.9.0",
+    "@playwright/test": "^1.43.0",
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
+  }
+}

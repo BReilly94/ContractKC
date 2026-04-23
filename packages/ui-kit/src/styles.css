@@ -1,0 +1,215 @@
+:root {
+  --ckb-brand-pitch-black: #000000;
+  --ckb-brand-technica-gold: #877232;
+  --ckb-brand-platinum: #CCCCCC;
+  --ckb-brand-light-gold: #DECA8C;
+  --ckb-brand-pure-white: #FFFFFF;
+
+  --ckb-bg: var(--ckb-brand-pure-white);
+  --ckb-surface: #F5F5F5;
+  --ckb-surface-dark: var(--ckb-brand-pitch-black);
+  --ckb-border: var(--ckb-brand-platinum);
+  --ckb-text: var(--ckb-brand-pitch-black);
+  --ckb-text-muted: #595959;
+  --ckb-text-on-dark: var(--ckb-brand-pure-white);
+  --ckb-accent-on-dark: var(--ckb-brand-light-gold);
+  --ckb-primary: var(--ckb-brand-technica-gold);
+  --ckb-primary-contrast: var(--ckb-brand-pure-white);
+  --ckb-danger: #B91C1C;
+  --ckb-warning: #B45309;
+  --ckb-success: #047857;
+  --ckb-focus-ring: var(--ckb-brand-technica-gold);
+  --ckb-space-1: 4px;
+  --ckb-space-2: 8px;
+  --ckb-space-3: 12px;
+  --ckb-space-4: 16px;
+  --ckb-space-6: 24px;
+  --ckb-space-8: 32px;
+  --ckb-radius-sm: 4px;
+  --ckb-radius-md: 6px;
+  --ckb-radius-lg: 8px;
+  --ckb-font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.ckb-visuallyhidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ckb-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ckb-space-1);
+  margin-bottom: var(--ckb-space-4);
+}
+
+.ckb-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ckb-text);
+}
+
+.ckb-input {
+  padding: var(--ckb-space-2) var(--ckb-space-3);
+  border: 1px solid var(--ckb-border);
+  border-radius: var(--ckb-radius-md);
+  font-family: var(--ckb-font-sans);
+  font-size: 1rem;
+  background: var(--ckb-bg);
+  color: var(--ckb-text);
+}
+
+.ckb-input:focus-visible {
+  outline: 2px solid var(--ckb-focus-ring);
+  outline-offset: 2px;
+}
+
+.ckb-input[aria-invalid='true'] {
+  border-color: var(--ckb-danger);
+}
+
+.ckb-help {
+  font-size: 0.8125rem;
+  color: var(--ckb-text-muted);
+}
+
+.ckb-error {
+  font-size: 0.8125rem;
+  color: var(--ckb-danger);
+}
+
+.ckb-btn {
+  padding: var(--ckb-space-2) var(--ckb-space-4);
+  border-radius: var(--ckb-radius-md);
+  font-family: var(--ckb-font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.ckb-btn:focus-visible {
+  outline: 2px solid var(--ckb-focus-ring);
+  outline-offset: 2px;
+}
+
+.ckb-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ckb-btn--primary {
+  background: var(--ckb-primary);
+  color: var(--ckb-primary-contrast);
+}
+
+.ckb-btn--secondary {
+  background: var(--ckb-surface);
+  color: var(--ckb-text);
+  border-color: var(--ckb-border);
+}
+
+.ckb-btn--danger {
+  background: var(--ckb-danger);
+  color: var(--ckb-primary-contrast);
+}
+
+.ckb-btn--ghost {
+  background: transparent;
+  color: var(--ckb-text);
+}
+
+.ckb-money {
+  display: flex;
+  gap: var(--ckb-space-2);
+}
+
+.ckb-money__amount {
+  flex: 1;
+}
+
+.ckb-money__currency {
+  min-width: 6rem;
+}
+
+.ckb-stepper ol {
+  display: flex;
+  gap: var(--ckb-space-4);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ckb-stepper__item {
+  display: flex;
+  align-items: center;
+  gap: var(--ckb-space-2);
+  color: var(--ckb-text-muted);
+}
+
+.ckb-stepper__item--current {
+  color: var(--ckb-primary);
+  font-weight: 600;
+}
+
+.ckb-stepper__item--complete {
+  color: var(--ckb-success);
+}
+
+.ckb-stepper__index {
+  display: inline-flex;
+  width: 1.75rem;
+  height: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--ckb-surface);
+  border: 1px solid var(--ckb-border);
+  font-weight: 600;
+}
+
+.ckb-stepper__item--current .ckb-stepper__index {
+  background: var(--ckb-primary);
+  color: var(--ckb-primary-contrast);
+  border-color: var(--ckb-primary);
+}
+
+.ckb-dialog {
+  border: 1px solid var(--ckb-border);
+  border-radius: var(--ckb-radius-lg);
+  padding: 0;
+  max-width: 32rem;
+  width: 90vw;
+}
+
+.ckb-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ckb-space-4);
+  border-bottom: 1px solid var(--ckb-border);
+}
+
+.ckb-dialog__header h2 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.ckb-dialog__close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--ckb-text-muted);
+}
+
+.ckb-dialog__body {
+  padding: var(--ckb-space-4);
+}

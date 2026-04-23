@@ -1,0 +1,85 @@
+@import '@ckb/ui-kit/styles.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--ckb-font-sans);
+  color: var(--ckb-text);
+  background: var(--ckb-surface);
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--ckb-space-6);
+}
+
+header.ckb-appbar {
+  background: var(--ckb-surface-dark);
+  color: var(--ckb-text-on-dark);
+  border-bottom: 1px solid var(--ckb-brand-technica-gold);
+  padding: var(--ckb-space-3) var(--ckb-space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header.ckb-appbar a,
+header.ckb-appbar strong {
+  color: var(--ckb-accent-on-dark);
+}
+
+header.ckb-appbar .ckb-help {
+  color: var(--ckb-brand-platinum);
+}
+
+header.ckb-appbar .ckb-btn--ghost {
+  color: var(--ckb-text-on-dark);
+}
+
+.ckb-card {
+  background: var(--ckb-bg);
+  border: 1px solid var(--ckb-border);
+  border-radius: var(--ckb-radius-lg);
+  padding: var(--ckb-space-6);
+  margin-bottom: var(--ckb-space-4);
+}
+
+.ckb-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--ckb-surface);
+  border: 1px solid var(--ckb-border);
+}
+
+.ckb-badge--warning {
+  background: #FAF1DC;
+  border-color: var(--ckb-brand-light-gold);
+  color: var(--ckb-warning);
+}
+
+.ckb-badge--success {
+  background: #E4F3EC;
+  border-color: #9BD1B6;
+  color: var(--ckb-success);
+}
+
+.ckb-stack-row {
+  display: flex;
+  gap: var(--ckb-space-3);
+  align-items: center;
+}
+
+.ckb-empty-state {
+  text-align: center;
+  padding: var(--ckb-space-8);
+  color: var(--ckb-text-muted);
+}
