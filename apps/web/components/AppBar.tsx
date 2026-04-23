@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@ckb/ui-kit';
+import { Button, Logo } from '@ckb/ui-kit';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/auth-store';
@@ -10,11 +10,15 @@ export function AppBar() {
   const { user, logout } = useAuthStore();
   return (
     <header className="ckb-appbar">
-      <div>
-        <Link href="/contracts" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <strong>Contract Knowledge Base</strong>
-        </Link>
-      </div>
+      <Link
+        href="/contracts"
+        className="ckb-appbar__brand"
+        style={{ textDecoration: 'none', color: 'inherit' }}
+      >
+        <Logo variant="horizontal" tone="white" width={180} />
+        <span className="ckb-appbar__divider" aria-hidden="true" />
+        <strong className="ckb-appbar__product">Contract Knowledge Base</strong>
+      </Link>
       {user && (
         <div className="ckb-stack-row">
           <span className="ckb-help">

@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@ckb/ui-kit';
+import { Button, Logo } from '@ckb/ui-kit';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api-client';
@@ -47,7 +47,10 @@ export default function LoginPage() {
   }
 
   return (
-    <main>
+    <main className="ckb-login">
+      <div className="ckb-login__brand">
+        <Logo variant="vertical" tone="black" width={200} />
+      </div>
       <h1>Dev login</h1>
       <p className="ckb-help">
         Pick a seeded dev user. This screen is only visible when{' '}
