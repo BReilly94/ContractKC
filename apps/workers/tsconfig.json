@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../../packages/shared" },
+    { "path": "../../packages/domain" },
+    { "path": "../../packages/queue" },
+    { "path": "../../packages/storage" },
+    { "path": "../../packages/search" },
+    { "path": "../../packages/scanning" },
+    { "path": "../../packages/audit" },
+    { "path": "../../packages/ai" },
+    { "path": "../../packages/ocr" },
+    { "path": "../../packages/runtime" }
+  ]
+}

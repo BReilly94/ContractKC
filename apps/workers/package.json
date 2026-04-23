@@ -1,0 +1,35 @@
+{
+  "name": "@ckb/workers",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "dev": "tsx watch --env-file=../../.env src/main.ts",
+    "start": "node --env-file=../../.env dist/main.js"
+  },
+  "dependencies": {
+    "@ckb/ai": "workspace:*",
+    "@ckb/audit": "workspace:*",
+    "@ckb/domain": "workspace:*",
+    "@ckb/ocr": "workspace:*",
+    "@ckb/queue": "workspace:*",
+    "@ckb/runtime": "workspace:*",
+    "@ckb/scanning": "workspace:*",
+    "@ckb/search": "workspace:*",
+    "@ckb/shared": "workspace:*",
+    "@ckb/storage": "workspace:*",
+    "mssql": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/mssql": "^9.1.5",
+    "@types/node": "^20.11.0",
+    "rimraf": "^5.0.5",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
+  }
+}

@@ -16,6 +16,8 @@
     "db:seed": "pnpm --filter @ckb/api run db:seed",
     "dev:api": "pnpm --filter @ckb/api run dev",
     "dev:web": "pnpm --filter @ckb/web run dev",
+    "dev:workers": "pnpm --filter @ckb/workers run dev",
+    "dev:ingestion": "pnpm --filter @ckb/ingestion run dev",
     "check:secrets": "tsx scripts/check-secrets.ts",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "pnpm -r typecheck",

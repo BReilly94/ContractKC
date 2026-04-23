@@ -1,0 +1,39 @@
+{
+  "name": "@ckb/runtime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ckb/ai": "workspace:*",
+    "@ckb/auth": "workspace:*",
+    "@ckb/ocr": "workspace:*",
+    "@ckb/queue": "workspace:*",
+    "@ckb/scanning": "workspace:*",
+    "@ckb/search": "workspace:*",
+    "@ckb/secrets": "workspace:*",
+    "@ckb/shared": "workspace:*",
+    "@ckb/storage": "workspace:*",
+    "mssql": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/mssql": "^9.1.5",
+    "@types/node": "^20.11.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
+  }
+}

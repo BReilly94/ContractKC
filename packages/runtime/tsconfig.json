@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../shared" },
+    { "path": "../secrets" },
+    { "path": "../storage" },
+    { "path": "../queue" },
+    { "path": "../search" },
+    { "path": "../scanning" },
+    { "path": "../ai" },
+    { "path": "../ocr" },
+    { "path": "../auth" }
+  ]
+}
