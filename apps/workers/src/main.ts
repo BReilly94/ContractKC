@@ -3,8 +3,8 @@ import { connectDb, createRuntimeClients, loadRuntimeConfig } from '@ckb/runtime
 import { allWorkers } from './registry.js';
 // Side-effect imports: each file registers itself via registerWorker().
 import './workers/heartbeat.js';
+import './workers/email-ingest/index.js';
 // Phase 1 workers land here as additional imports:
-// import './workers/email-ingest.js';
 // import './workers/malware-scan.js';
 // import './workers/ocr.js';
 // import './workers/embed-index.js';
