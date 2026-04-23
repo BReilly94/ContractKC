@@ -4,9 +4,9 @@ import { allWorkers } from './registry.js';
 // Side-effect imports: each file registers itself via registerWorker().
 import './workers/heartbeat.js';
 import './workers/email-ingest/index.js';
+import './workers/malware-scan.js';
+import './workers/ocr.js';
 // Phase 1 workers land here as additional imports:
-// import './workers/malware-scan.js';
-// import './workers/ocr.js';
 // import './workers/embed-index.js';
 // import './workers/clause-extract.js';
 // import './workers/summary-generate.js';
