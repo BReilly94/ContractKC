@@ -14,8 +14,7 @@ export function TextField({ label, error, help, required, ...rest }: TextFieldPr
   return (
     <div className="ckb-field">
       <label htmlFor={id} className="ckb-label">
-        {label}
-        {required ? ' *' : ''}
+        {required ? `${label} *` : label}
       </label>
       <input
         id={id}

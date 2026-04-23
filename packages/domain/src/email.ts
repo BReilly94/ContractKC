@@ -42,9 +42,10 @@ export type HumanAliasValidation =
   | { valid: false; reason: 'InvalidFormat' | 'Reserved' | 'CanonicalPrefix' };
 
 export function validateHumanAlias(localPart: string): HumanAliasValidation {
-  const lower = localPart.toLowerCase();
-  if (lower.startsWith('contract-')) return { valid: false, reason: 'CanonicalPrefix' };
-  if (RESERVED_LOCAL_PARTS.includes(lower)) return { valid: false, reason: 'Reserved' };
-  if (!HUMAN_ALIAS_REGEX.test(lower)) return { valid: false, reason: 'InvalidFormat' };
+  if (localPart.toLowerCase().startsWith('contract-'))
+    return { valid: false, reason: 'CanonicalPrefix' };
+  if (RESERVED_LOCAL_PARTS.includes(localPart.toLowerCase()))
+    return { valid: false, reason: 'Reserved' };
+  if (!HUMAN_ALIAS_REGEX.test(localPart)) return { valid: false, reason: 'InvalidFormat' };
   return { valid: true };
 }
