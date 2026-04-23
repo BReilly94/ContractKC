@@ -1,0 +1,57 @@
+{
+  "name": "@ckb/ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./capabilities/contract-summary": {
+      "types": "./dist/capabilities/contract-summary/index.d.ts",
+      "import": "./dist/capabilities/contract-summary/index.js"
+    },
+    "./capabilities/deadline-extract": {
+      "types": "./dist/capabilities/deadline-extract/index.d.ts",
+      "import": "./dist/capabilities/deadline-extract/index.js"
+    },
+    "./capabilities/clause-extract": {
+      "types": "./dist/capabilities/clause-extract/index.d.ts",
+      "import": "./dist/capabilities/clause-extract/index.js"
+    },
+    "./capabilities/email-prescreen": {
+      "types": "./dist/capabilities/email-prescreen/index.d.ts",
+      "import": "./dist/capabilities/email-prescreen/index.js"
+    },
+    "./capabilities/qa-synth": {
+      "types": "./dist/capabilities/qa-synth/index.d.ts",
+      "import": "./dist/capabilities/qa-synth/index.js"
+    },
+    "./regression": {
+      "types": "./dist/regression/index.d.ts",
+      "import": "./dist/regression/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "regression": "tsx --env-file=../../.env src/regression/cli.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.3",
+    "@ckb/shared": "workspace:*",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "rimraf": "^5.0.5",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "minPassRate": 1.0,
+  "_notes": [
+    "minPassRate is the lower bound for the regression harness.",
+    "Currently 1.0 because queries.jsonl is empty. Capabilities add queries as they land; if the pass rate dips below this, set a temporary lower bound in the PR and link a follow-up task."
+  ]
+}

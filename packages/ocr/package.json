@@ -1,0 +1,32 @@
+{
+  "name": "@ckb/ocr",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ckb/shared": "workspace:*",
+    "pdf-parse": "^1.1.1",
+    "tesseract.js": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/pdf-parse": "^1.1.4",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
+  }
+}
