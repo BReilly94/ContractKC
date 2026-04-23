@@ -9,6 +9,7 @@ import { DocumentsModule } from './documents/documents.module.js';
 import { EmailsModule } from './emails/emails.module.js';
 import { HealthModule } from './health/health.module.js';
 import { PartiesModule } from './parties/parties.module.js';
+import { QaModule } from './qa/qa.module.js';
 import { ReviewQueueModule } from './review-queue/review-queue.module.js';
 import { SearchModule } from './search/search.module.js';
 import { SenderTrustModule } from './sender-trust/sender-trust.module.js';
@@ -25,6 +26,7 @@ import { UsersModule } from './users/users.module.js';
     UsersModule,
     DocumentsModule,
     EmailsModule,
+    QaModule,
     ReviewQueueModule,
     SearchModule,
     SenderTrustModule,
