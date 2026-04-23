@@ -13,6 +13,7 @@ import { QaModule } from './qa/qa.module.js';
 import { ReviewQueueModule } from './review-queue/review-queue.module.js';
 import { SearchModule } from './search/search.module.js';
 import { SenderTrustModule } from './sender-trust/sender-trust.module.js';
+import { SummaryModule } from './summary/summary.module.js';
 import { TagsModule } from './tags/tags.module.js';
 import { UsersModule } from './users/users.module.js';
 
@@ -30,6 +31,7 @@ import { UsersModule } from './users/users.module.js';
     ReviewQueueModule,
     SearchModule,
     SenderTrustModule,
+    SummaryModule,
     TagsModule,
   ],
   providers: [
