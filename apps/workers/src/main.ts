@@ -6,8 +6,8 @@ import './workers/heartbeat.js';
 import './workers/email-ingest/index.js';
 import './workers/malware-scan.js';
 import './workers/ocr.js';
+import './workers/embed-index.js';
 // Phase 1 workers land here as additional imports:
-// import './workers/embed-index.js';
 // import './workers/clause-extract.js';
 // import './workers/summary-generate.js';
 // import './workers/deadline-extract.js';
