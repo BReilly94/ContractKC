@@ -11,6 +11,7 @@ import { DeadlinesModule } from './deadlines/deadlines.module.js';
 import { DocumentsModule } from './documents/documents.module.js';
 import { EmailsModule } from './emails/emails.module.js';
 import { HealthModule } from './health/health.module.js';
+import { NotificationsModule } from './notifications/notifications.module.js';
 import { PartiesModule } from './parties/parties.module.js';
 import { QaModule } from './qa/qa.module.js';
 import { ReviewQueueModule } from './review-queue/review-queue.module.js';
@@ -24,6 +25,7 @@ import { UsersModule } from './users/users.module.js';
   imports: [
     GlobalsModule,
     HealthModule,
+    NotificationsModule,
     ContractsModule,
     AccessModule,
     PartiesModule,
