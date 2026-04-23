@@ -52,7 +52,11 @@ export type AuditAction =
   | 'clause.extract'
   | 'clause.verify'
   | 'clause_relationship.create'
-  | 'clause_relationship.verify';
+  | 'clause_relationship.verify'
+  // Contacts
+  | 'contact.create'
+  | 'contact.update'
+  | 'contact.delete';
 
 export type AuditEntityType =
   // Contract layer
@@ -79,7 +83,8 @@ export type AuditEntityType =
   | 'InboundEmailEvent'
   | 'Deadline'
   | 'Clause'
-  | 'ClauseRelationship';
+  | 'ClauseRelationship'
+  | 'ContractContact';
 
 export interface AuditLogEntry {
   readonly id: AuditLogEntryId;

@@ -2,6 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { AccessModule } from './access/access.module.js';
 import { ClausesModule } from './clauses/clauses.module.js';
+import { ContactsModule } from './contacts/contacts.module.js';
 import { GlobalsModule } from './common/globals.module.js';
 import { CorrelationMiddleware } from './common/correlation.middleware.js';
 import { GlobalExceptionFilter } from './common/exception.filter.js';
@@ -28,6 +29,7 @@ import { UsersModule } from './users/users.module.js';
     PartiesModule,
     UsersModule,
     ClausesModule,
+    ContactsModule,
     DeadlinesModule,
     DocumentsModule,
     EmailsModule,
