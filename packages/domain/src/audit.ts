@@ -56,7 +56,12 @@ export type AuditAction =
   // Contacts
   | 'contact.create'
   | 'contact.update'
-  | 'contact.delete';
+  | 'contact.delete'
+  // Exports
+  | 'export.request'
+  | 'export.complete'
+  | 'export.fail'
+  | 'export.download';
 
 export type AuditEntityType =
   // Contract layer
@@ -84,7 +89,8 @@ export type AuditEntityType =
   | 'Deadline'
   | 'Clause'
   | 'ClauseRelationship'
-  | 'ContractContact';
+  | 'ContractContact'
+  | 'ExportJob';
 
 export interface AuditLogEntry {
   readonly id: AuditLogEntryId;

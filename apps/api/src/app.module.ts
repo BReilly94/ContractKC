@@ -10,6 +10,7 @@ import { ContractsModule } from './contracts/contracts.module.js';
 import { DeadlinesModule } from './deadlines/deadlines.module.js';
 import { DocumentsModule } from './documents/documents.module.js';
 import { EmailsModule } from './emails/emails.module.js';
+import { ExportsModule } from './exports/exports.module.js';
 import { HealthModule } from './health/health.module.js';
 import { NotificationsModule } from './notifications/notifications.module.js';
 import { PartiesModule } from './parties/parties.module.js';
@@ -35,6 +36,7 @@ import { UsersModule } from './users/users.module.js';
     DeadlinesModule,
     DocumentsModule,
     EmailsModule,
+    ExportsModule,
     QaModule,
     ReviewQueueModule,
     SearchModule,
