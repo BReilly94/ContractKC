@@ -15,8 +15,18 @@ async function bootstrap(): Promise<void> {
   app.enableShutdownHooks();
 
   const config = app.get<AppConfig>(APP_CONFIG);
+  const isLocalDev = config.authMode === 'local-dev';
   app.enableCors({
-    origin: config.webBaseUrl,
+    origin: (requestOrigin, cb) => {
+      if (!requestOrigin) return cb(null, true); // same-origin / tools
+      if (requestOrigin === config.webBaseUrl) return cb(null, true);
+      // Accept Codespaces forwarded-port origins in local-dev mode only —
+      // never in production (AUTH_MODE=local-dev is forbidden there anyway).
+      if (isLocalDev && /\.app\.github\.dev$/.test(new URL(requestOrigin).hostname)) {
+        return cb(null, true);
+      }
+      cb(new Error(`Origin not allowed: ${requestOrigin}`));
+    },
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization', 'x-correlation-id'],
     exposedHeaders: ['x-correlation-id'],
