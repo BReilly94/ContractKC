@@ -1,0 +1,37 @@
+{
+  "name": "CKB Phase 1 Dev",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true,
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "16gb"
+  },
+  "forwardPorts": [3000, 4000, 4001, 8025, 9200],
+  "portsAttributes": {
+    "3000": { "label": "Web UI", "onAutoForward": "notify" },
+    "4000": { "label": "API" },
+    "4001": { "label": "Ingestion webhook" },
+    "8025": { "label": "MailHog inbox" },
+    "9200": { "label": "OpenSearch" }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "remoteEnv": {
+    "EMAIL_INBOX_DIR": "${containerWorkspaceFolder}/dev/inbox",
+    "EMAIL_PROCESSED_DIR": "${containerWorkspaceFolder}/dev/processed"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
