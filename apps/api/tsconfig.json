@@ -21,6 +21,7 @@
     { "path": "../../packages/search" },
     { "path": "../../packages/scanning" },
     { "path": "../../packages/ocr" },
+    { "path": "../../packages/erp" },
     { "path": "../../packages/runtime" }
   ]
 }

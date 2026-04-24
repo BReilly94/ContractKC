@@ -18,6 +18,7 @@
     "@ckb/audit": "workspace:*",
     "@ckb/auth": "workspace:*",
     "@ckb/domain": "workspace:*",
+    "@ckb/erp": "workspace:*",
     "@ckb/ocr": "workspace:*",
     "@ckb/queue": "workspace:*",
     "@ckb/runtime": "workspace:*",

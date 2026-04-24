@@ -1,4 +1,5 @@
 import { createLLMClient, type LLMClient } from '@ckb/ai';
+import { createErpClient, type ErpClient } from '@ckb/erp';
 import { createOcrClient, type OcrClient } from '@ckb/ocr';
 import { createQueueClient, type QueueClient } from '@ckb/queue';
 import { createMalwareScanner, type MalwareScanner } from '@ckb/scanning';
@@ -17,6 +18,7 @@ export interface RuntimeClients {
   readonly scanner: MalwareScanner;
   readonly llm: LLMClient;
   readonly ocr: OcrClient;
+  readonly erp: ErpClient;
 }
 
 export function createRuntimeClients(config: RuntimeConfig): RuntimeClients {
@@ -47,5 +49,10 @@ export function createRuntimeClients(config: RuntimeConfig): RuntimeClients {
     zeroRetention: config.anthropicZeroRetention,
   });
   const ocr = createOcrClient({ mode: config.providerMode });
-  return { storage, queue, search, scanner, llm, ocr };
+  const erp = createErpClient({
+    ...(config.erpSourceSystem !== undefined ? { sourceSystem: config.erpSourceSystem } : {}),
+    ...(config.erpEndpointUrl !== undefined ? { endpointUrl: config.erpEndpointUrl } : {}),
+    ...(config.erpApiKey !== undefined ? { apiKey: config.erpApiKey } : {}),
+  });
+  return { storage, queue, search, scanner, llm, ocr, erp };
 }

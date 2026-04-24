@@ -20,6 +20,7 @@
   "dependencies": {
     "@ckb/ai": "workspace:*",
     "@ckb/auth": "workspace:*",
+    "@ckb/erp": "workspace:*",
     "@ckb/ocr": "workspace:*",
     "@ckb/queue": "workspace:*",
     "@ckb/scanning": "workspace:*",

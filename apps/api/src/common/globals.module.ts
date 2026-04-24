@@ -1,5 +1,6 @@
 import { createLLMClient, type LLMClient } from '@ckb/ai';
 import { createAuthProvider } from '@ckb/auth';
+import { createErpClient, type ErpClient } from '@ckb/erp';
 import { createOcrClient, type OcrClient } from '@ckb/ocr';
 import { createQueueClient, type QueueClient } from '@ckb/queue';
 import { createMalwareScanner, type MalwareScanner } from '@ckb/scanning';
@@ -14,6 +15,7 @@ import {
   APP_CONFIG,
   AUTH_PROVIDER,
   DB_POOL,
+  ERP_CLIENT,
   LLM_CLIENT,
   MALWARE_SCANNER,
   OCR_CLIENT,
@@ -102,6 +104,16 @@ import {
         createOcrClient({ mode: config.providerMode }),
       inject: [APP_CONFIG],
     },
+    {
+      provide: ERP_CLIENT,
+      useFactory: (config: RuntimeConfig): ErpClient =>
+        createErpClient({
+          ...(config.erpSourceSystem !== undefined ? { sourceSystem: config.erpSourceSystem } : {}),
+          ...(config.erpEndpointUrl !== undefined ? { endpointUrl: config.erpEndpointUrl } : {}),
+          ...(config.erpApiKey !== undefined ? { apiKey: config.erpApiKey } : {}),
+        }),
+      inject: [APP_CONFIG],
+    },
   ],
   exports: [
     APP_CONFIG,
@@ -113,6 +125,7 @@ import {
     MALWARE_SCANNER,
     LLM_CLIENT,
     OCR_CLIENT,
+    ERP_CLIENT,
   ],
 })
 export class GlobalsModule {

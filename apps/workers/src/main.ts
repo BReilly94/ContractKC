@@ -10,7 +10,12 @@ import './workers/embed-index.js';
 import './workers/summary-generate.js';
 import './workers/deadline-extract.js';
 import './workers/clause-extract.js';
+import './workers/drawing-diff.js';
+import './workers/minutes-extract.js';
+import './workers/proactive-flagger.js';
 import './workers/notify.js';
+import './workers/digest.js';
+import './workers/erp-refresh.js';
 
 async function main(): Promise<void> {
   const logger = createLogger('ckb-workers');

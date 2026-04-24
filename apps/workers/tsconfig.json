@@ -14,6 +14,7 @@
     { "path": "../../packages/scanning" },
     { "path": "../../packages/audit" },
     { "path": "../../packages/ai" },
+    { "path": "../../packages/erp" },
     { "path": "../../packages/ocr" },
     { "path": "../../packages/runtime" }
   ]

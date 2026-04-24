@@ -53,7 +53,7 @@ export interface EmailIngestPayload {
   readonly blobPath: string;
   readonly envelopeTo: readonly string[];
   readonly envelopeFrom: string;
-  readonly provider: 'SendGrid' | 'LocalFolderWatcher' | 'AzureNative';
+  readonly provider: 'SendGrid' | 'LocalFolderWatcher' | 'AzureNative' | 'OutlookAddin';
   readonly source: string;
 }
 

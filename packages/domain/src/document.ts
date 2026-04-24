@@ -13,6 +13,7 @@ export type DocumentCategory =
   | 'Amendment'
   | 'Drawing'
   | 'Specification'
+  | 'MeetingMinutes'
   | 'NegotiationRecord'
   | 'Correspondence'
   | 'Permit'
@@ -27,6 +28,7 @@ export const DOCUMENT_CATEGORIES: readonly DocumentCategory[] = [
   'Amendment',
   'Drawing',
   'Specification',
+  'MeetingMinutes',
   'NegotiationRecord',
   'Correspondence',
   'Permit',

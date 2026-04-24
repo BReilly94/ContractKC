@@ -1,0 +1,202 @@
+/* Minimal styles. No dependency on @ckb/ui-kit — the add-in sandbox is
+   isolated from the web app and must not drag in Next.js-specific bundles.
+   Tokens mirror packages/ui-kit/tokens.ts by value. */
+
+:root {
+  --ckb-color-bg: #ffffff;
+  --ckb-color-ink: #0f172a;
+  --ckb-color-muted: #64748b;
+  --ckb-color-accent: #0f766e;
+  --ckb-color-accent-ink: #ffffff;
+  --ckb-color-border: #e2e8f0;
+  --ckb-color-warn: #b45309;
+  --ckb-color-error: #b91c1c;
+  --ckb-color-success: #166534;
+  --ckb-space-1: 4px;
+  --ckb-space-2: 8px;
+  --ckb-space-3: 12px;
+  --ckb-space-4: 16px;
+  --ckb-radius: 6px;
+  --ckb-font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ckb-font);
+  color: var(--ckb-color-ink);
+  background: var(--ckb-color-bg);
+  font-size: 14px;
+}
+
+.app {
+  padding: var(--ckb-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ckb-space-4);
+}
+
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app__title {
+  font-size: 16px;
+  margin: 0;
+}
+
+.app__status-pill {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #ecfdf5;
+  color: var(--ckb-color-success);
+}
+.app__status-pill[data-online='false'] {
+  background: #fef2f2;
+  color: var(--ckb-color-error);
+}
+
+.app__user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--ckb-color-border);
+  padding-bottom: var(--ckb-space-2);
+}
+
+section h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ckb-color-muted);
+  margin: 0 0 var(--ckb-space-2);
+}
+
+.app__item-preview dl {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: var(--ckb-space-1) var(--ckb-space-3);
+  margin: 0;
+}
+
+.app__item-preview dt {
+  color: var(--ckb-color-muted);
+}
+
+.app__contract-picker input[type='search'] {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--ckb-color-border);
+  border-radius: var(--ckb-radius);
+  font-size: 14px;
+  margin-bottom: var(--ckb-space-2);
+  box-sizing: border-box;
+}
+
+.app__contract-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--ckb-color-border);
+  border-radius: var(--ckb-radius);
+}
+
+.app__contract-list li + li {
+  border-top: 1px solid var(--ckb-color-border);
+}
+
+.app__contract-list label {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--ckb-space-2);
+  padding: var(--ckb-space-2) var(--ckb-space-3);
+  cursor: pointer;
+}
+
+.app__contract-name {
+  font-weight: 600;
+}
+
+.app__contract-email {
+  font-size: 12px;
+}
+
+.app__contract-state {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--ckb-color-muted);
+  grid-column: 2 / 4;
+}
+
+.app__send-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--ckb-color-accent);
+  color: var(--ckb-color-accent-ink);
+  border: 0;
+  border-radius: var(--ckb-radius);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.app__send-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.app__queue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app__queue ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ckb-space-2);
+}
+
+.banner {
+  margin-top: var(--ckb-space-2);
+  padding: var(--ckb-space-2) var(--ckb-space-3);
+  border-radius: var(--ckb-radius);
+  font-size: 13px;
+}
+
+.banner--success {
+  background: #ecfdf5;
+  color: var(--ckb-color-success);
+}
+
+.banner--warn {
+  background: #fffbeb;
+  color: var(--ckb-color-warn);
+}
+
+.banner--error {
+  background: #fef2f2;
+  color: var(--ckb-color-error);
+}
+
+.muted {
+  color: var(--ckb-color-muted);
+}
+
+.error-text {
+  color: var(--ckb-color-error);
+  font-size: 12px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}

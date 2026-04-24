@@ -16,10 +16,12 @@ describe('document domain', () => {
     expect(isRetrievable({ malwareScanStatus: 'Clean' })).toBe(true);
   });
 
-  it('category list covers every SOW §5.1 category', () => {
+  it('category list covers every SOW §5.1 category (plus Slice BB MeetingMinutes)', () => {
     expect(DOCUMENT_CATEGORIES).toContain('MasterAgreement');
     expect(DOCUMENT_CATEGORIES).toContain('Bond');
     expect(DOCUMENT_CATEGORIES).toContain('Other');
-    expect(DOCUMENT_CATEGORIES).toHaveLength(12);
+    // Slice BB (§6.19) — MeetingMinutes category drives minutes-extract.
+    expect(DOCUMENT_CATEGORIES).toContain('MeetingMinutes');
+    expect(DOCUMENT_CATEGORIES).toHaveLength(13);
   });
 });

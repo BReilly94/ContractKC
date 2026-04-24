@@ -13,6 +13,7 @@
     { "path": "../search" },
     { "path": "../scanning" },
     { "path": "../ai" },
+    { "path": "../erp" },
     { "path": "../ocr" },
     { "path": "../auth" }
   ]

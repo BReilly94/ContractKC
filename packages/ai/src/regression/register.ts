@@ -3,12 +3,20 @@ import {
   clauseExtractMock,
   contractSummaryMock,
   deadlineExtractMock,
+  drawingDiffMock,
   emailPrescreenMock,
+  minutesExtractMock,
+  proactiveFlagDeepReviewMock,
+  proactiveFlagFirstPassMock,
   qaSynthMock,
   runClauseExtract,
   runContractSummary,
   runDeadlineExtract,
+  runDrawingDiff,
   runEmailPrescreen,
+  runMinutesExtract,
+  runProactiveFlagDeepReview,
+  runProactiveFlagFirstPass,
   runQaSynth,
 } from '../capabilities/index.js';
 import type { CapabilityRunner } from './runner.js';
@@ -33,6 +41,10 @@ export function runnersFor(opts: RegisterOpts): Readonly<Record<string, Capabili
     mock.register('deadline-extract', deadlineExtractMock);
     mock.register('clause-extract', clauseExtractMock);
     mock.register('qa-synth', qaSynthMock);
+    mock.register('drawing-diff', drawingDiffMock);
+    mock.register('minutes-extract', minutesExtractMock);
+    mock.register('proactive-flag-first-pass', proactiveFlagFirstPassMock);
+    mock.register('proactive-flag-deep-review', proactiveFlagDeepReviewMock);
     llm = mock;
   } else {
     llm = createLLMClient({
@@ -94,6 +106,60 @@ export function runnersFor(opts: RegisterOpts): Readonly<Record<string, Capabili
         return {
           output: { verdict: !result.blocked, answer: result.answer },
           text: result.answer,
+          citedChunkIds: [...result.citedChunkIds],
+        };
+      },
+    },
+    'drawing-diff': {
+      capability: 'drawing-diff',
+      async run(input: unknown) {
+        const result = await runDrawingDiff(llm, input as Parameters<typeof runDrawingDiff>[1]);
+        return {
+          output: result.output,
+          text: JSON.stringify(result.output),
+          citedChunkIds: [...result.citedChunkIds],
+        };
+      },
+    },
+    'minutes-extract': {
+      capability: 'minutes-extract',
+      async run(input: unknown) {
+        const result = await runMinutesExtract(llm, input as Parameters<typeof runMinutesExtract>[1]);
+        return {
+          output: result.output,
+          text: JSON.stringify(result.output),
+          citedChunkIds: [...result.citedChunkIds],
+        };
+      },
+    },
+    'proactive-flag-first-pass': {
+      capability: 'proactive-flag-first-pass',
+      async run(input: unknown) {
+        const result = await runProactiveFlagFirstPass(
+          llm,
+          input as Parameters<typeof runProactiveFlagFirstPass>[1],
+        );
+        return {
+          output: { verdict: result.output.candidate, flagKindHint: result.output.flagKindHint },
+          text: JSON.stringify(result.output),
+          citedChunkIds: [],
+        };
+      },
+    },
+    'proactive-flag-deep-review': {
+      capability: 'proactive-flag-deep-review',
+      async run(input: unknown) {
+        const result = await runProactiveFlagDeepReview(
+          llm,
+          input as Parameters<typeof runProactiveFlagDeepReview>[1],
+        );
+        return {
+          output: {
+            verdict: result.raised,
+            flagKind: result.output.flagKind,
+            recommendedAction: result.output.recommendedAction,
+          },
+          text: result.output.reasoning,
           citedChunkIds: [...result.citedChunkIds],
         };
       },

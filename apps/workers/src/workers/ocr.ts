@@ -134,6 +134,33 @@ async function runOcr(payload: OcrPayload, ctx: WorkerContext): Promise<void> {
       { documentId: payload.documentId },
       { jobId: `clause:${payload.documentId}` },
     );
+
+    // Category-specific post-OCR routing.
+    //   - Drawing → drawing-diff (Slice AA, §6.17): compares with prior
+    //     version when a revision exists.
+    //   - MeetingMinutes → minutes-extract (Slice BB, §6.19): extracts
+    //     action items as Unverified deadlines.
+    // The downstream workers re-check the category/version condition
+    // before running — queuing unconditionally keeps the OCR path
+    // simple and the dispatch logic colocated with each worker.
+    const catRow = await db
+      .request()
+      .input('id', mssql.Char(26), payload.documentId)
+      .query<{ category: string }>(`SELECT category FROM document WHERE id = @id`);
+    const category = catRow.recordset[0]?.category;
+    if (category === 'Drawing') {
+      await clients.queue.enqueue(
+        QUEUES.drawingDiff,
+        { documentId: payload.documentId },
+        { jobId: `drawing-diff:${payload.documentId}:${Date.now()}` },
+      );
+    } else if (category === 'MeetingMinutes') {
+      await clients.queue.enqueue(
+        QUEUES.minutesExtract,
+        { documentId: payload.documentId },
+        { jobId: `minutes-extract:${payload.documentId}:${Date.now()}` },
+      );
+    }
   } catch (err) {
     await markStatus(db, payload.documentId, 'Failed', systemUserId, (err as Error).message);
     throw err;

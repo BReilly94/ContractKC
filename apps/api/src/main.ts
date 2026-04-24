@@ -14,6 +14,10 @@ async function bootstrap(): Promise<void> {
   });
   app.enableShutdownHooks();
 
+  // Uploads arrive as base64 JSON; default 100kb blows up past ~70KB of file.
+  // SOW §9 target is 100MB — 150mb covers base64 inflation.
+  app.useBodyParser('json', { limit: '150mb' });
+
   const config = app.get<AppConfig>(APP_CONFIG);
   const isLocalDev = config.authMode === 'local-dev';
   app.enableCors({

@@ -342,6 +342,39 @@ export class ContractsService {
       );
     }
 
+    // Slice HH — §6.21 archive gate. Query the closeout checklist inline
+    // to avoid the ContractsModule ↔ CloseoutModule import cycle. Keeps
+    // the service layer self-contained; the CloseoutService wraps the
+    // same check for admin UIs.
+    if (current.lifecycleState === 'Closeout' && targetState === 'Archived') {
+      const check = await this.pool
+        .request()
+        .input('contract_id', mssql.Char(26), contractId)
+        .query<{ pending_count: number; has_checklist: number }>(`
+          SELECT
+            (CASE WHEN EXISTS (SELECT 1 FROM closeout_checklist WHERE contract_id = @contract_id)
+                  THEN 1 ELSE 0 END) AS has_checklist,
+            (SELECT COUNT(*)
+               FROM closeout_checklist_item i
+               JOIN closeout_checklist c ON c.id = i.checklist_id
+              WHERE c.contract_id = @contract_id AND i.status = 'Pending') AS pending_count;
+        `);
+      const hasChecklist = Boolean(check.recordset[0]?.has_checklist);
+      const pendingCount = check.recordset[0]?.pending_count ?? 0;
+      if (!hasChecklist) {
+        throw new ValidationError(
+          'Cannot archive: contract has no closeout checklist (§6.21)',
+          { code: 'NoChecklist' },
+        );
+      }
+      if (pendingCount > 0) {
+        throw new ValidationError(
+          `Cannot archive: ${pendingCount} closeout item(s) still Pending (§6.21 HUMAN GATE)`,
+          { code: 'ItemsOutstanding', pendingCount },
+        );
+      }
+    }
+
     const tx = new mssql.Transaction(this.pool);
     await tx.begin(mssql.ISOLATION_LEVEL.SERIALIZABLE);
     try {

@@ -33,3 +33,35 @@ export {
   type QaSynthInputT,
 } from './qa-synth/index.js';
 export { qaSynthMock } from './qa-synth/mock.js';
+
+// Slice AA — Drawing Comparison (§6.17)
+export {
+  runDrawingDiff,
+  type DrawingDiffInputT,
+  type DrawingDiffOutputT,
+  type DrawingChangeRegionT,
+} from './drawing-diff/index.js';
+export { drawingDiffMock } from './drawing-diff/mock.js';
+
+// Slice BB — Meeting Minutes Ingestion (§6.19)
+export {
+  runMinutesExtract,
+  type MinutesExtractInputT,
+  type MinutesExtractOutputT,
+  type ActionItemT,
+} from './minutes-extract/index.js';
+export { minutesExtractMock } from './minutes-extract/mock.js';
+
+// Slice GG — Proactive AI Flagging (§6.15, §7.10)
+export {
+  runProactiveFlagFirstPass,
+  runProactiveFlagDeepReview,
+  type ProactiveFlagFirstPassInputT,
+  type ProactiveFlagFirstPassOutputT,
+  type ProactiveFlagDeepReviewInputT,
+  type ProactiveFlagDeepReviewOutputT,
+} from './proactive-flag/index.js';
+export {
+  proactiveFlagFirstPassMock,
+  proactiveFlagDeepReviewMock,
+} from './proactive-flag/mock.js';

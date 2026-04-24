@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Contract Knowledge Base — Outlook Add-in manifest
+  SOW §6.18. Mail add-in (ItemRead + ItemCompose) that surfaces a "Send to
+  Contract" ribbon button and a taskpane for the contract picker.
+
+  The GUID below is a development placeholder; before deploying through
+  Technica's M365 tenant, regenerate it with `office-addin-manifest new-guid`
+  and update the AdminCenter catalog entry.
+-->
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
+  xsi:type="MailApp">
+
+  <Id>7b6a3e9e-0000-4000-8000-ckboutlook001</Id>
+  <Version>0.1.0.0</Version>
+  <ProviderName>Technica Mining</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Contract Knowledge Base" />
+  <Description DefaultValue="Route any Outlook email (received or sent) to the matching Contract Knowledge Base project-designated address." />
+  <IconUrl DefaultValue="https://localhost:3010/assets/icon-64.png" />
+  <HighResolutionIconUrl DefaultValue="https://localhost:3010/assets/icon-128.png" />
+  <SupportUrl DefaultValue="https://technicamining.com/contract-knowledge-base" />
+
+  <AppDomains>
+    <AppDomain>https://localhost:3010</AppDomain>
+    <AppDomain>http://localhost:4000</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Mailbox" />
+  </Hosts>
+
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.8" />
+    </Sets>
+  </Requirements>
+
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://localhost:3010/taskpane.html" />
+        <RequestedHeight>450</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteMailbox</Permissions>
+
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read" />
+  </Rule>
+
+  <DisableEntityHighlighting>true</DisableEntityHighlighting>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.8">
+        <bt:Set Name="Mailbox" />
+      </bt:Sets>
+    </Requirements>
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <DesktopFormFactor>
+          <FunctionFile resid="Commands.Url" />
+
+          <!-- Ribbon button in message-read surface. -->
+          <ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="ckbGroup">
+                <Label resid="GroupLabel" />
+                <Control xsi:type="Button" id="ckbShowTaskpaneButton">
+                  <Label resid="ShowTaskpane.Label" />
+                  <Supertip>
+                    <Title resid="ShowTaskpane.Label" />
+                    <Description resid="ShowTaskpane.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16" />
+                    <bt:Image size="32" resid="Icon.32x32" />
+                    <bt:Image size="80" resid="Icon.80x80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+          <!-- Same button in compose surface — §6.18 "both received and sent". -->
+          <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="ckbGroupCompose">
+                <Label resid="GroupLabel" />
+                <Control xsi:type="Button" id="ckbShowTaskpaneButtonCompose">
+                  <Label resid="ShowTaskpane.Label" />
+                  <Supertip>
+                    <Title resid="ShowTaskpane.Label" />
+                    <Description resid="ShowTaskpane.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16" />
+                    <bt:Image size="32" resid="Icon.32x32" />
+                    <bt:Image size="80" resid="Icon.80x80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3010/assets/icon-16.png" />
+        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3010/assets/icon-32.png" />
+        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3010/assets/icon-80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3010/commands.html" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3010/taskpane.html" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GroupLabel" DefaultValue="Contract KB" />
+        <bt:String id="ShowTaskpane.Label" DefaultValue="Send to Contract" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="ShowTaskpane.Tooltip"
+          DefaultValue="Route this email to a Contract Knowledge Base project-designated address." />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

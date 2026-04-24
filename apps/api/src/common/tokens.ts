@@ -8,3 +8,4 @@ export const SEARCH_CLIENT = Symbol('SEARCH_CLIENT');
 export const MALWARE_SCANNER = Symbol('MALWARE_SCANNER');
 export const LLM_CLIENT = Symbol('LLM_CLIENT');
 export const OCR_CLIENT = Symbol('OCR_CLIENT');
+export const ERP_CLIENT = Symbol('ERP_CLIENT');

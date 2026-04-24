@@ -1,5 +1,15 @@
+import type { ErpSourceSystem } from '@ckb/erp';
 import type { SecretsProvider } from '@ckb/secrets';
 import { createSecretsProvider } from '@ckb/secrets';
+
+const ERP_SOURCE_VALUES: readonly ErpSourceSystem[] = [
+  'Manual',
+  'SAP',
+  'Dynamics',
+  'Viewpoint',
+  'JDE',
+  'Other',
+];
 
 /**
  * Runtime config shared across API, workers, and ingestion apps.
@@ -40,6 +50,11 @@ export interface RuntimeConfig {
 
   readonly smtpHost: string;
   readonly smtpPort: number;
+
+  readonly erpSourceSystem: ErpSourceSystem | undefined;
+  readonly erpEndpointUrl: string | undefined;
+  readonly erpApiKey: string | undefined;
+  readonly bidIntegrationToken: string | undefined;
 }
 
 export async function loadRuntimeConfig(): Promise<{
@@ -68,6 +83,17 @@ export async function loadRuntimeConfig(): Promise<{
 
   const anthropicApiKey = await secrets.get('ANTHROPIC_API_KEY');
   const zeroRetention = (await secrets.get('ANTHROPIC_ZERO_RETENTION')) === 'true';
+  const erpSourceSystemRaw = process.env['ERP_SOURCE_SYSTEM'];
+  let erpSourceSystem: ErpSourceSystem | undefined;
+  if (erpSourceSystemRaw !== undefined && erpSourceSystemRaw !== '') {
+    if (!ERP_SOURCE_VALUES.includes(erpSourceSystemRaw as ErpSourceSystem)) {
+      throw new Error(`Invalid ERP_SOURCE_SYSTEM: ${erpSourceSystemRaw}`);
+    }
+    erpSourceSystem = erpSourceSystemRaw as ErpSourceSystem;
+  }
+  const erpEndpointUrl = process.env['ERP_ENDPOINT_URL'];
+  const erpApiKey = (await secrets.get('ERP_API_KEY')) ?? undefined;
+  const bidIntegrationToken = (await secrets.get('BID_INTEGRATION_TOKEN')) ?? undefined;
   if (anthropicApiKey && !zeroRetention) {
     throw new Error(
       'ANTHROPIC_ZERO_RETENTION must be true when ANTHROPIC_API_KEY is set ' +
@@ -106,6 +132,11 @@ export async function loadRuntimeConfig(): Promise<{
 
       smtpHost: process.env['SMTP_HOST'] ?? 'localhost',
       smtpPort: Number(process.env['SMTP_PORT'] ?? 1025),
+
+      erpSourceSystem,
+      erpEndpointUrl: erpEndpointUrl !== '' ? erpEndpointUrl : undefined,
+      erpApiKey,
+      bidIntegrationToken,
     },
     secrets,
   };
