@@ -15,9 +15,11 @@
 ------------------------------------------------------------------------
 ALTER TABLE contract
   ADD daily_flag_budget INT NOT NULL CONSTRAINT df_contract_daily_flag_budget DEFAULT 50;
+GO
 
 ALTER TABLE contract
   ADD CONSTRAINT ck_contract_daily_flag_budget_nonneg CHECK (daily_flag_budget >= 0);
+GO
 
 ------------------------------------------------------------------------
 -- proactive_flag
