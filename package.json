@@ -7,9 +7,9 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev:up": "docker compose -f infra/local/docker-compose.yml up -d",
-    "dev:down": "docker compose -f infra/local/docker-compose.yml down",
-    "dev:logs": "docker compose -f infra/local/docker-compose.yml logs -f",
+    "dev:up": "docker compose -f infra/local/docker-compose.yml --env-file .env up -d",
+    "dev:down": "docker compose -f infra/local/docker-compose.yml --env-file .env down",
+    "dev:logs": "docker compose -f infra/local/docker-compose.yml --env-file .env logs -f",
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
     "db:migrate": "pnpm --filter @ckb/api run db:migrate",
