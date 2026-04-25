@@ -83,7 +83,7 @@ export class SummaryService {
     await this.queue.enqueue(
       QUEUES.summaryGenerate,
       { contractId, triggeredByUserId: principal.userId },
-      { jobId: `summary:${contractId}:${Date.now()}` },
+      { jobId: `summary_${contractId}_${Date.now()}` },
     );
     void correlationId;
     return { queued: true };

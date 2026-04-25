@@ -271,12 +271,12 @@ export class DocumentsService {
     await this.queue.enqueue(
       QUEUES.malwareScan,
       { documentId, blobPath, sha256: hash, sizeBytes: bytes.byteLength },
-      { jobId: `scan:${documentId}` },
+      { jobId: `scan_${documentId}` },
     );
     await this.queue.enqueue(
       QUEUES.ocr,
       { documentId, blobPath, mimeType: body.mimeType, language },
-      { jobId: `ocr:${documentId}` },
+      { jobId: `ocr_${documentId}` },
     );
 
     const created = await this.get(documentId);
@@ -445,12 +445,12 @@ export class DocumentsService {
     await this.queue.enqueue(
       QUEUES.malwareScan,
       { documentId, blobPath, sha256: hash, sizeBytes: bytes.byteLength },
-      { jobId: `scan:${versionId}` },
+      { jobId: `scan_${versionId}` },
     );
     await this.queue.enqueue(
       QUEUES.ocr,
       { documentId, blobPath, mimeType: body.mimeType, language: existing.language },
-      { jobId: `ocr:${versionId}` },
+      { jobId: `ocr_${versionId}` },
     );
 
     const refreshed = await this.get(documentId);

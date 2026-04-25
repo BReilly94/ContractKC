@@ -339,12 +339,12 @@ export class BidHandoffService {
       await this.queue.enqueue(
         QUEUES.malwareScan,
         { documentId: docId, blobPath: doc.blobPath, sha256: doc.hash, sizeBytes: doc.sizeBytes },
-        { jobId: `scan:${docId}` },
+        { jobId: `scan_${docId}` },
       );
       await this.queue.enqueue(
         QUEUES.ocr,
         { documentId: docId, blobPath: doc.blobPath, mimeType: doc.item.mimeType, language: 'en' },
-        { jobId: `ocr:${docId}` },
+        { jobId: `ocr_${docId}` },
       );
     }
 
