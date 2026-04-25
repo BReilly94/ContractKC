@@ -1,4 +1,5 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:4000';
+// Always use relative paths — Next.js proxy route at app/api/[...path] forwards to NestJS.
+const API_BASE = '';
 
 export class ApiError extends Error {
   constructor(
