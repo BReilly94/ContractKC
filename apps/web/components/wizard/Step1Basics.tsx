@@ -145,7 +145,7 @@ export function Step1Basics({ onNext }: { onNext: () => void }) {
         title="Create a new party"
       >
         <TextField
-          label="Party name"
+          label="Company name"
           required
           value={newPartyName}
           onChange={(e) => setNewPartyName(e.target.value)}

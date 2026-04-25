@@ -24,7 +24,9 @@ async function request<T>(
     query?: Record<string, string | number | boolean | undefined>;
   },
 ): Promise<T> {
-  const url = new URL(path.startsWith('http') ? path : API_BASE + path);
+  const rawUrl = path.startsWith('http') ? path : API_BASE + path;
+  const base = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+  const url = new URL(rawUrl.startsWith('/') || rawUrl.startsWith('http') ? rawUrl : '/' + rawUrl, base);
   if (options.query) {
     for (const [k, v] of Object.entries(options.query)) {
       if (v !== undefined) url.searchParams.set(k, String(v));
