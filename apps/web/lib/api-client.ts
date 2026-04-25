@@ -41,6 +41,13 @@ async function request<T>(
     body: options.body === undefined ? undefined : JSON.stringify(options.body),
   });
   if (!res.ok) {
+    if (res.status === 401 && typeof window !== 'undefined') {
+      // Token expired or invalid — clear storage and send to login.
+      window.localStorage.removeItem('ckb.devToken');
+      window.localStorage.removeItem('ckb.devUser');
+      window.location.href = '/login';
+      return undefined as T;
+    }
     let payload: { error?: { code?: string; message?: string; details?: unknown } } = {};
     try {
       payload = (await res.json()) as typeof payload;
