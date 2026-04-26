@@ -118,6 +118,10 @@ export class DocumentsService {
       clauses.push('category = @category');
       req.input('category', mssql.VarChar(40), query.category);
     }
+    if (query.source) {
+      clauses.push('source = @source');
+      req.input('source', mssql.VarChar(24), query.source);
+    }
     if (!query.includeSuperseded) {
       clauses.push('is_superseded = 0');
     }
@@ -271,7 +275,11 @@ export class DocumentsService {
     await this.queue.enqueue(
       QUEUES.malwareScan,
       { documentId, blobPath, sha256: hash, sizeBytes: bytes.byteLength },
-      { jobId: `scan_${documentId}` },
+      {
+        jobId: `scan_${documentId}`,
+        attempts: 8,
+        backoff: { type: 'exponential', delayMs: 3_000 },
+      },
     );
     await this.queue.enqueue(
       QUEUES.ocr,

@@ -14,8 +14,14 @@ export interface EnqueueOptions {
   readonly jobId?: string;
   /** Delay in ms before the job becomes runnable. */
   readonly delayMs?: number;
-  /** Max retry attempts. Defaults to the queue's default. */
+  /** Max retry attempts. Defaults to 1 (no retry). */
   readonly attempts?: number;
+  /** Backoff strategy when attempts > 1. */
+  readonly backoff?: {
+    readonly type: 'exponential' | 'fixed';
+    /** Base delay in ms. Exponential: delay * 2^attempt. Fixed: constant delay. */
+    readonly delayMs: number;
+  };
 }
 
 export interface JobContext<TPayload> {

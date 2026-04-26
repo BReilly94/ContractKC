@@ -31,6 +31,7 @@ export type AddTagBody = z.infer<typeof AddTagBody>;
 
 export const ListDocumentsQuery = z.object({
   category: z.string().optional(),
+  source: z.enum(['ManualUpload', 'EmailIngestion', 'BidHandoff']).optional(),
   includeSuperseded: z
     .union([z.string(), z.boolean()])
     .transform((v) => v === true || v === 'true')

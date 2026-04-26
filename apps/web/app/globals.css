@@ -223,3 +223,282 @@ header.ckb-appbar .ckb-btn--ghost {
   font-weight: 600;
   background: var(--ckb-surface);
 }
+
+/* ── Badge: danger variant ───────────────────────────────────── */
+.ckb-badge--danger {
+  background: #FDECEC;
+  border-color: #E3A8A8;
+  color: var(--ckb-danger);
+}
+
+/* ── Panel shell ─────────────────────────────────────────────── */
+.ckb-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ckb-space-4);
+  margin: var(--ckb-space-4) 0;
+}
+
+.ckb-panel-header__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--ckb-space-2);
+}
+
+.ckb-panel-header__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--ckb-surface);
+  border: 1px solid var(--ckb-border);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ckb-text-muted);
+}
+
+.ckb-panel-empty {
+  padding: var(--ckb-space-8) var(--ckb-space-6);
+  text-align: center;
+  color: var(--ckb-text-muted);
+  background: var(--ckb-bg);
+  border: 1px dashed var(--ckb-border);
+  border-radius: var(--ckb-radius-lg);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+/* ── Contract detail header ──────────────────────────────────── */
+.ckb-detail-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--ckb-space-4);
+  gap: var(--ckb-space-4);
+  flex-wrap: wrap;
+}
+
+.ckb-detail-back {
+  font-size: 0.875rem;
+  color: var(--ckb-text-muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ckb-space-1);
+  transition: color 0.1s ease;
+}
+
+.ckb-detail-back:hover {
+  color: var(--ckb-text);
+}
+
+.ckb-detail-badges {
+  display: flex;
+  gap: var(--ckb-space-2);
+  flex-wrap: wrap;
+}
+
+.ckb-detail-title {
+  margin: 0 0 var(--ckb-space-2);
+  font-size: 1.625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.ckb-detail-facts {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  font-size: 0.9375rem;
+  color: var(--ckb-text-muted);
+  margin-bottom: var(--ckb-space-6);
+  padding-bottom: var(--ckb-space-6);
+  border-bottom: 1px solid var(--ckb-border);
+}
+
+.ckb-detail-facts__sep {
+  margin: 0 4px;
+  opacity: 0.35;
+}
+
+/* ── Metadata definition list ────────────────────────────────── */
+.ckb-meta-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: var(--ckb-space-6);
+  row-gap: var(--ckb-space-2);
+  margin: var(--ckb-space-3) 0 0;
+}
+
+.ckb-meta-grid dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ckb-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-top: 3px;
+}
+
+.ckb-meta-grid dd {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+/* ── Contracts overview ──────────────────────────────────────── */
+.ckb-contracts-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ckb-space-4);
+  margin-bottom: var(--ckb-space-6);
+  flex-wrap: wrap;
+}
+
+.ckb-contracts-header__title {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.ckb-contracts-header__sub {
+  margin: var(--ckb-space-1) 0 0;
+  color: var(--ckb-text-muted);
+  font-size: 0.9375rem;
+}
+
+.ckb-stats-strip {
+  display: flex;
+  gap: var(--ckb-space-3);
+  margin-bottom: var(--ckb-space-6);
+  flex-wrap: wrap;
+}
+
+.ckb-stat {
+  background: var(--ckb-bg);
+  border: 1px solid var(--ckb-border);
+  border-radius: var(--ckb-radius-md);
+  padding: var(--ckb-space-3) var(--ckb-space-4);
+  min-width: 6.5rem;
+}
+
+.ckb-stat__count {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ckb-stat__label {
+  font-size: 0.6875rem;
+  color: var(--ckb-text-muted);
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Contract list card ──────────────────────────────────────── */
+.ckb-contract-card {
+  background: var(--ckb-bg);
+  border: 1px solid var(--ckb-border);
+  border-radius: var(--ckb-radius-lg);
+  margin-bottom: var(--ckb-space-3);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.ckb-contract-card:hover {
+  border-color: var(--ckb-brand-technica-gold);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.ckb-contract-card a {
+  display: block;
+  padding: var(--ckb-space-4) var(--ckb-space-6);
+  text-decoration: none;
+  color: inherit;
+}
+
+.ckb-contract-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--ckb-space-2);
+}
+
+.ckb-contract-card__badges {
+  display: flex;
+  gap: var(--ckb-space-2);
+  flex-wrap: wrap;
+}
+
+.ckb-contract-card__arrow {
+  color: var(--ckb-brand-technica-gold);
+  font-size: 1rem;
+  opacity: 0.7;
+  transition: opacity 0.1s ease, transform 0.1s ease;
+}
+
+.ckb-contract-card:hover .ckb-contract-card__arrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+.ckb-contract-card__name {
+  margin: 0 0 var(--ckb-space-1);
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.ckb-contract-card__meta {
+  margin: 0 0 var(--ckb-space-3);
+  font-size: 0.875rem;
+  color: var(--ckb-text-muted);
+}
+
+.ckb-contract-card__sep {
+  margin: 0 5px;
+  opacity: 0.4;
+}
+
+.ckb-contract-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--ckb-space-3);
+  border-top: 1px solid var(--ckb-border);
+  gap: var(--ckb-space-4);
+}
+
+/* ── Skeleton loading ────────────────────────────────────────── */
+@keyframes ckb-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.ckb-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--ckb-surface) 25%,
+    #e5e5e5 50%,
+    var(--ckb-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: ckb-shimmer 1.5s ease infinite;
+  border-radius: var(--ckb-radius-sm);
+  display: block;
+}
+
+.ckb-skeleton-card {
+  background: var(--ckb-bg);
+  border: 1px solid var(--ckb-border);
+  border-radius: var(--ckb-radius-lg);
+  padding: var(--ckb-space-4) var(--ckb-space-6);
+  margin-bottom: var(--ckb-space-3);
+}

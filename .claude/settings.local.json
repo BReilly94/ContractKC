@@ -2,7 +2,38 @@
   "permissions": {
     "allow": [
       "Bash(git init *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(pnpm --filter @ckb/ui-kit build)",
+      "Bash(pnpm --filter @ckb/ui-kit test)",
+      "Bash(pnpm --filter @ckb/web exec tsc --noEmit)",
+      "Bash(pnpm --filter @ckb/ui-kit typecheck)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)",
+      "Bash(pnpm typecheck *)",
+      "Bash(pnpm test *)",
+      "Bash(git commit *)",
+      "Bash(pnpm --filter web typecheck)",
+      "Bash(pnpm --filter web build)",
+      "Bash(pnpm install *)",
+      "Bash(pnpm build *)",
+      "Bash(pnpm --filter @ckb/workers typecheck)",
+      "Bash(pnpm --filter @ckb/ai build)",
+      "Bash(pnpm --filter @ckb/ai regression)",
+      "Bash(grep -n \"before: current\\\\|after: { ...current\" apps/api/src/contacts/contacts.service.ts)",
+      "Bash(pnpm check:ai)",
+      "Bash(pnpm check:secrets)",
+      "Bash(git push *)",
+      "Bash(python -c \"from docx import Document; d=Document\\('docs/business-sow-v0.6.docx'\\); [print\\(p.text\\) for p in d.paragraphs]\")",
+      "Read(//tmp/**)",
+      "Bash(python3 -c ' *)",
+      "Bash(pnpm vitest *)",
+      "Bash(pnpm -r --filter=@ckb/domain --filter=@ckb/audit --filter=@ckb/auth --filter=@ckb/shared typecheck)",
+      "Bash(xargs -I {} basename {})",
+      "Bash(pnpm tsx *)",
+      "Bash(xargs grep *)",
+      "Bash(npx tsc *)",
+      "Bash(awk '{print $NF}')",
+      "Bash(dir \"C:\\\\Users\\\\sarge\\\\Desktop\\\\ContractKC\\\\apps\\\\web\")"
     ]
   }
 }

@@ -63,18 +63,20 @@ pnpm db:migrate
 ok "Migrations complete"
 
 # ── 5. Start API + web concurrently ──────────────────────────────────────────
-step "Starting API (port 4000) and web app (port 3000)..."
+step "Starting API (port 4000), workers, and web app (port 3000)..."
 echo ""
-echo "  API:  http://localhost:4000/health"
-echo "  Web:  http://localhost:3000"
+echo "  API:     http://localhost:4000/health"
+echo "  Web:     http://localhost:3000"
+echo "  Workers: malware-scan, OCR, embed-index, clause-extract, and more"
 echo ""
 echo "  In Codespaces — open the PORTS tab and click the globe next to port 3000."
 echo "  Press Ctrl+C to stop everything."
 echo ""
 
 exec npx --yes concurrently \
-  --names "api,web" \
-  --prefix-colors "cyan,magenta" \
+  --names "api,workers,web" \
+  --prefix-colors "cyan,yellow,magenta" \
   --kill-others-on-fail \
   "pnpm --filter @ckb/api run dev" \
+  "pnpm --filter @ckb/workers run dev" \
   "pnpm --filter @ckb/web run dev"

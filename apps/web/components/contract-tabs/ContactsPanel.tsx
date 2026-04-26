@@ -1,7 +1,8 @@
 'use client';
 
-import { Button } from '@ckb/ui-kit';
+import { Button, Select, TextField } from '@ckb/ui-kit';
 import { useEffect, useState } from 'react';
+import { PanelShell } from '@/components/PanelShell';
 import { api, type ApiContact } from '@/lib/api-client';
 import { useAuthStore } from '@/lib/auth-store';
 
@@ -11,6 +12,17 @@ const AUTHORITY_LABELS: Record<ApiContact['authorityLevel'], string> = {
   CanApproveVariations: 'Can approve variations',
   Administrative: 'Administrative',
 };
+
+const AUTHORITY_OPTIONS = (
+  Object.entries(AUTHORITY_LABELS) as [ApiContact['authorityLevel'], string][]
+).map(([value, label]) => ({ value, label }));
+
+function authorityBadgeClass(level: ApiContact['authorityLevel']): string {
+  if (level === 'CanDirectExtraWork' || level === 'CanIssueSiteInstructions') {
+    return 'ckb-badge--warning';
+  }
+  return '';
+}
 
 export function ContactsPanel({ contractId }: { contractId: string }) {
   const token = useAuthStore((s) => s.token);
@@ -26,50 +38,50 @@ export function ContactsPanel({ contractId }: { contractId: string }) {
       setError((e as Error).message);
     }
   }
+
   useEffect(() => {
     void reload();
   }, [token, contractId]);
 
   return (
-    <div>
-      <div className="ckb-stack-row" style={{ justifyContent: 'space-between' }}>
-        <h3>Contact directory</h3>
-        <Button onClick={() => setShowAdd(!showAdd)}>Add contact</Button>
-      </div>
-      {error && <div role="alert" className="ckb-error">{error}</div>}
-      {contacts === null && <p>Loading…</p>}
-      {contacts && contacts.length === 0 && (
-        <div className="ckb-empty-state">
-          <p>No contacts yet. Add named individuals with authority levels so the email viewer can surface who can direct work.</p>
-        </div>
-      )}
-      {contacts && contacts.length > 0 && (
-        <table className="ckb-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Role</th>
-              <th>Contact</th>
-              <th>Authority</th>
+    <PanelShell
+      title="Contact directory"
+      count={contacts?.length}
+      action={<Button onClick={() => setShowAdd(!showAdd)}>Add contact</Button>}
+      loading={contacts === null}
+      error={error}
+      empty={contacts?.length === 0}
+      emptyMessage="No contacts yet. Add named individuals with their authority levels — the email viewer uses this to surface who can direct work or approve variations."
+    >
+      <table className="ckb-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Contact</th>
+            <th>Authority</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contacts?.map((c) => (
+            <tr key={c.id}>
+              <td style={{ fontWeight: 600 }}>{c.name}</td>
+              <td>{c.roleTitle ?? <span className="ckb-help">—</span>}</td>
+              <td>
+                {c.email && <div>{c.email}</div>}
+                {c.phone && <div className="ckb-help">{c.phone}</div>}
+                {!c.email && !c.phone && <span className="ckb-help">—</span>}
+              </td>
+              <td>
+                <span className={`ckb-badge ${authorityBadgeClass(c.authorityLevel)}`}>
+                  {AUTHORITY_LABELS[c.authorityLevel]}
+                </span>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {contacts.map((c) => (
-              <tr key={c.id}>
-                <td>{c.name}</td>
-                <td>{c.roleTitle ?? '—'}</td>
-                <td>
-                  {c.email && <div>{c.email}</div>}
-                  {c.phone && <div className="ckb-help">{c.phone}</div>}
-                </td>
-                <td>
-                  <span className="ckb-badge">{AUTHORITY_LABELS[c.authorityLevel]}</span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          ))}
+        </tbody>
+      </table>
+
       {showAdd && (
         <AddContactForm
           contractId={contractId}
@@ -80,7 +92,7 @@ export function ContactsPanel({ contractId }: { contractId: string }) {
           }}
         />
       )}
-    </div>
+    </PanelShell>
   );
 }
 
@@ -123,60 +135,50 @@ function AddContactForm({
   }
 
   return (
-    <div className="ckb-card" style={{ marginTop: 16 }}>
-      <h4>New contact</h4>
-      <div style={{ display: 'grid', gap: 8 }}>
-        <label>
-          Name{' '}
-          <input
-            value={name}
-            onChange={(e) => setName(e.currentTarget.value)}
-            style={{ width: '100%', padding: 8 }}
-          />
-        </label>
-        <label>
-          Role{' '}
-          <input
-            value={role}
-            onChange={(e) => setRole(e.currentTarget.value)}
-            style={{ width: '100%', padding: 8 }}
-          />
-        </label>
-        <label>
-          Email{' '}
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.currentTarget.value)}
-            style={{ width: '100%', padding: 8 }}
-          />
-        </label>
-        <label>
-          Phone{' '}
-          <input
-            value={phone}
-            onChange={(e) => setPhone(e.currentTarget.value)}
-            style={{ width: '100%', padding: 8 }}
-          />
-        </label>
-        <label>
-          Authority{' '}
-          <select
-            value={authority}
-            onChange={(e) => setAuthority(e.currentTarget.value as ApiContact['authorityLevel'])}
-          >
-            {Object.entries(AUTHORITY_LABELS).map(([k, v]) => (
-              <option key={k} value={k}>
-                {v}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-      {err && <div role="alert" className="ckb-error">{err}</div>}
-      <div className="ckb-stack-row" style={{ marginTop: 12 }}>
+    <div className="ckb-card" style={{ marginTop: 'var(--ckb-space-4)' }}>
+      <h4 style={{ margin: '0 0 var(--ckb-space-4)' }}>New contact</h4>
+
+      <TextField
+        label="Name"
+        required
+        value={name}
+        onChange={(e) => setName(e.currentTarget.value)}
+      />
+      <TextField
+        label="Role / title"
+        value={role}
+        onChange={(e) => setRole(e.currentTarget.value)}
+      />
+      <TextField
+        label="Email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.currentTarget.value)}
+      />
+      <TextField
+        label="Phone"
+        type="tel"
+        value={phone}
+        onChange={(e) => setPhone(e.currentTarget.value)}
+      />
+      <Select
+        label="Authority level"
+        options={AUTHORITY_OPTIONS}
+        value={authority}
+        onChange={(e) =>
+          setAuthority(e.currentTarget.value as ApiContact['authorityLevel'])
+        }
+      />
+
+      {err && (
+        <div role="alert" className="ckb-error" style={{ marginBottom: 'var(--ckb-space-3)' }}>
+          {err}
+        </div>
+      )}
+
+      <div className="ckb-stack-row">
         <Button onClick={submit} disabled={busy || name.trim().length === 0}>
-          {busy ? 'Saving…' : 'Save'}
+          {busy ? 'Saving…' : 'Save contact'}
         </Button>
         <Button variant="ghost" onClick={onClose}>
           Cancel

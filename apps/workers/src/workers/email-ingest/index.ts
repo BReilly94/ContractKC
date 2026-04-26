@@ -412,12 +412,12 @@ async function ingestIntoContract(args: IngestIntoContractArgs): Promise<string 
       await clients.queue.enqueue(
         QUEUES.malwareScan,
         { documentId: job.documentId, blobPath: job.blobPath, sha256: job.sha256, sizeBytes: job.size },
-        { jobId: `scan:${job.documentId}` },
+        { jobId: `scan_${job.documentId}` },
       );
       await clients.queue.enqueue(
         QUEUES.ocr,
         { documentId: job.documentId, blobPath: job.blobPath, mimeType: job.mime, language: 'en' },
-        { jobId: `ocr:${job.documentId}` },
+        { jobId: `ocr_${job.documentId}` },
       );
     }
     // Privileged-content prescreen & indexing enqueues happen regardless of
@@ -426,13 +426,13 @@ async function ingestIntoContract(args: IngestIntoContractArgs): Promise<string 
     await clients.queue.enqueue(
       QUEUES.emailPrescreen,
       { emailId, contractId },
-      { jobId: `prescreen:${emailId}` },
+      { jobId: `prescreen_${emailId}` },
     );
     if (trustState === 'Approved') {
       await clients.queue.enqueue(
         QUEUES.embedIndex,
         { emailId, contractId, kind: 'Email' },
-        { jobId: `index:email:${emailId}` },
+        { jobId: `index_email_${emailId}` },
       );
     }
 

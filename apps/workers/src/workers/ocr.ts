@@ -55,7 +55,7 @@ async function runOcr(payload: OcrPayload, ctx: WorkerContext): Promise<void> {
       documentId: payload.documentId,
     });
     await clients.queue.enqueue(QUEUES.ocr, payload, {
-      jobId: `ocr:${payload.documentId}:${Date.now()}`,
+      jobId: `ocr_${payload.documentId}_${Date.now()}`,
       delayMs: 10_000,
     });
     return;
@@ -127,12 +127,12 @@ async function runOcr(payload: OcrPayload, ctx: WorkerContext): Promise<void> {
     await clients.queue.enqueue(
       QUEUES.embedIndex,
       { documentId: payload.documentId, kind: 'Document' },
-      { jobId: `index:doc:${payload.documentId}:ocr` },
+      { jobId: `index_doc_${payload.documentId}_ocr` },
     );
     await clients.queue.enqueue(
       QUEUES.clauseExtract,
       { documentId: payload.documentId },
-      { jobId: `clause:${payload.documentId}` },
+      { jobId: `clause_${payload.documentId}` },
     );
 
     // Category-specific post-OCR routing.
@@ -152,13 +152,13 @@ async function runOcr(payload: OcrPayload, ctx: WorkerContext): Promise<void> {
       await clients.queue.enqueue(
         QUEUES.drawingDiff,
         { documentId: payload.documentId },
-        { jobId: `drawing-diff:${payload.documentId}:${Date.now()}` },
+        { jobId: `drawing_diff_${payload.documentId}_${Date.now()}` },
       );
     } else if (category === 'MeetingMinutes') {
       await clients.queue.enqueue(
         QUEUES.minutesExtract,
         { documentId: payload.documentId },
-        { jobId: `minutes-extract:${payload.documentId}:${Date.now()}` },
+        { jobId: `minutes_extract_${payload.documentId}_${Date.now()}` },
       );
     }
   } catch (err) {

@@ -40,6 +40,12 @@ export class BullMqQueueClient implements QueueClient {
     if (options.jobId !== undefined) jobOptions['jobId'] = options.jobId;
     if (options.delayMs !== undefined) jobOptions['delay'] = options.delayMs;
     if (options.attempts !== undefined) jobOptions['attempts'] = options.attempts;
+    if (options.backoff !== undefined) {
+      jobOptions['backoff'] = {
+        type: options.backoff.type,
+        delay: options.backoff.delayMs,
+      };
+    }
     const job = await queue.add(queueName, payload as unknown, jobOptions);
     return { jobId: String(job.id) };
   }

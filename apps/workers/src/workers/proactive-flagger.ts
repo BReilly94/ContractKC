@@ -243,7 +243,7 @@ async function runFlag(payload: ProactiveFlagPayload, ctx: WorkerContext): Promi
       body: deep.output.recommendedAction,
       linkPath: `/contracts/${payload.contractId}/flags/${flagId}`,
     },
-    { jobId: `notify:pflag:${flagId}` },
+    { jobId: `notify_pflag_${flagId}` },
   );
 }
 
@@ -322,7 +322,7 @@ async function alertBudgetExceeded(
       body: `Today's flag count (${observed}) has met or exceeded the daily budget (${budget}). Raising the budget is configurable on the contract.`,
       linkPath: `/contracts/${contractId}/flags`,
     },
-    { jobId: `notify:fbudget:${contractId}:${utcDay.toISOString().slice(0, 10)}` },
+    { jobId: `notify_fbudget_${contractId}_${utcDay.toISOString().slice(0, 10)}` },
   );
 
   logger.warn('proactive-flag: daily budget exceeded — alerting admin, not throttling', {

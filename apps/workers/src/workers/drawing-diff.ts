@@ -305,7 +305,7 @@ async function diff(payload: DrawingDiffPayload, ctx: WorkerContext): Promise<vo
       triggerSummary: `Drawing ${doc.original_filename} revised (${prior.version_label} → ${current.version_label}); scope impact ${scopeImpact}.`,
       triggerExcerpt: result.output.diffSummary,
     },
-    { jobId: `pflag:drawdiff:${diffId}` },
+    { jobId: `pflag_drawdiff_${diffId}` },
   );
 }
 

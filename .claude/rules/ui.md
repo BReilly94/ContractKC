@@ -69,7 +69,37 @@ Every async operation has a loading state. Skeleton UIs preferred over spinners 
 - Version chain visible from the document header.
 - Superseded versions are accessible but clearly flagged with a `SUPERSEDED` badge.
 
-## 11. Redaction Display
+## 11. Logo Usage (Technica Brand Guidelines 2023)
+
+The Technica Mining logo is rendered only through `<Logo>` from `@ckb/ui-kit`.
+Never inline an `<img>` pointing at a brand asset, never hand-roll the SVG in
+feature code.
+
+- **Variants:** `horizontal` | `vertical` | `mark`. Orientation is a layout
+  choice — pick the one that fits the allocated space.
+- **Tones:** `black` | `white` | `gray`. Gray is secondary only. Never apply
+  gradients, effects, or any other color.
+- **Wordmark rule:** the "Technica Mining" wordmark is never shown without
+  the mark. Use `variant="horizontal"` or `variant="vertical"` — do not
+  render the wordmark text separately.
+- **Minimum rendered widths:** 180px (horizontal) / 130px (vertical) /
+  42px (mark). The component warns below these in development.
+- **Clear space:** equal to the mark's inner-circle diameter. The component
+  applies this as padding automatically. Do not override it with negative
+  margins or tighter containers.
+- **Product labelling:** when a product name needs to sit beside the logo
+  (e.g. "Contract Knowledge Base" in the app bar), render it as a sibling
+  element with a visible divider, outside the logo's clear-space. Never
+  overlay, composite, or re-letter the wordmark itself.
+- **Do not** alter, skew, rotate, recolour, re-letter, or re-arrange the mark
+  or wordmark. Do not use previous versions. If the current asset looks
+  wrong, escalate to brand — don't edit it in code.
+
+The inline SVG in `Logo.tsx` is a **placeholder** pending delivery of the
+official vector artwork. See `apps/web/public/README.md` for the swap
+procedure.
+
+## 12. Redaction Display
 
 - Redacted passages show a visible redaction marker (not just blanked space).
 - User without clearance sees the marker but not the content, and is not told the content is secret in a way that implies its nature.

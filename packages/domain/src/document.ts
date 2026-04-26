@@ -19,6 +19,7 @@ export type DocumentCategory =
   | 'Permit'
   | 'Insurance'
   | 'Bond'
+  | 'BidDocument'
   | 'Other';
 
 export const DOCUMENT_CATEGORIES: readonly DocumentCategory[] = [
@@ -34,6 +35,7 @@ export const DOCUMENT_CATEGORIES: readonly DocumentCategory[] = [
   'Permit',
   'Insurance',
   'Bond',
+  'BidDocument',
   'Other',
 ];
 

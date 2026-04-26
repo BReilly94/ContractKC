@@ -127,6 +127,24 @@ export interface ApiDocument {
   language: string;
 }
 
+export interface ApiBidHandoff {
+  id: string;
+  contractId: string;
+  bidId: string;
+  sourceSystem: string;
+  status: 'Received' | 'Processed' | 'Failed';
+  receivedAt: string;
+  receivedByUserId: string | null;
+  receivedVia: 'UserSession' | 'ApiKey';
+  rawPayloadSha256: string;
+  risksCreated: number;
+  contactsCreated: number;
+  documentsCreated: number;
+  errorMessage: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface ApiEmailList {
   id: string;
   contractId: string;
@@ -289,6 +307,73 @@ export interface ApiClause {
   isSuperseded: boolean;
 }
 
+export interface ApiTimelineItem {
+  id: string;
+  contractId: string;
+  occurredAt: string;
+  kind: string;
+  entityType: string;
+  entityId: string;
+  title: string;
+  subtitle: string | null;
+  severity: 'info' | 'warning' | 'critical' | null;
+}
+
+export interface ApiTimelineResult {
+  items: ApiTimelineItem[];
+  nextCursor: string | null;
+}
+
+export interface ApiVariation {
+  id: string;
+  contractId: string;
+  variationNumber: number | null;
+  title: string;
+  description: string | null;
+  lifecycleState: string;
+  pricedAmountCents: number | null;
+  approvedAmountCents: number | null;
+  originatingInstruction: string | null;
+  submittedAt: string | null;
+  closedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ApiRisk {
+  id: string;
+  contractId: string;
+  title: string;
+  description: string | null;
+  category: string;
+  probability: string;
+  impact: string;
+  mitigation: string | null;
+  status: string;
+  source: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ApiClaim {
+  id: string;
+  contractId: string;
+  claimNumber: number | null;
+  title: string;
+  lifecycleState: string;
+  narrative: string | null;
+  amountClaimedCents: number | null;
+  amountAwardedCents: number | null;
+  timeImpactDays: number | null;
+  triggerEventSummary: string | null;
+  primaryClauseId: string | null;
+  submittedAt: string | null;
+  resolvedAt: string | null;
+  resolutionNote: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export const api = {
   devListUsers: (opts: ApiClientOptions) =>
     request<Array<{ id: string; email: string; displayName: string }>>('/api/dev/users', {
@@ -322,8 +407,12 @@ export const api = {
     request<ApiUser[]>('/api/users', { ...opts, query: { is_pm: 'true' } }),
 
   // Documents
-  listDocuments: (opts: ApiClientOptions, contractId: string) =>
-    request<ApiDocument[]>(`/api/contracts/${contractId}/documents`, opts),
+  listDocuments: (
+    opts: ApiClientOptions,
+    contractId: string,
+    filters?: { category?: string; source?: string; includeSuperseded?: boolean },
+  ) =>
+    request<ApiDocument[]>(`/api/contracts/${contractId}/documents`, { ...opts, query: filters }),
   getDocument: (opts: ApiClientOptions, id: string) =>
     request<ApiDocument>(`/api/documents/${id}`, opts),
   uploadDocument: (
@@ -343,6 +432,10 @@ export const api = {
       method: 'POST',
       body,
     }),
+
+  // Bid handoffs
+  listBidHandoffs: (opts: ApiClientOptions, contractId: string) =>
+    request<ApiBidHandoff[]>('/api/bid-handoffs', { ...opts, query: { contractId } }),
 
   // Emails
   listEmails: (opts: ApiClientOptions, contractId: string) =>
@@ -452,4 +545,70 @@ export const api = {
       ...opts,
       query: { type },
     }),
+
+  // Timeline (§6.2 / §8.7)
+  listTimeline: (
+    opts: ApiClientOptions,
+    contractId: string,
+    params?: { limit?: number; cursor?: string; kinds?: string },
+  ) =>
+    request<ApiTimelineResult>(`/api/contracts/${contractId}/timeline`, {
+      ...opts,
+      query: params,
+    }),
+
+  // Variations (§6.3 / §8.9)
+  listVariations: (opts: ApiClientOptions, contractId: string) =>
+    request<{ items: ApiVariation[] }>(`/api/contracts/${contractId}/variations`, opts),
+  createVariation: (opts: ApiClientOptions, contractId: string, body: Record<string, unknown>) =>
+    request<ApiVariation>(`/api/contracts/${contractId}/variations`, {
+      ...opts,
+      method: 'POST',
+      body,
+    }),
+  transitionVariation: (
+    opts: ApiClientOptions,
+    contractId: string,
+    variationId: string,
+    target: string,
+    extra?: Record<string, unknown>,
+  ) =>
+    request<ApiVariation>(
+      `/api/contracts/${contractId}/variations/${variationId}/transitions`,
+      { ...opts, method: 'POST', body: { target, ...extra } },
+    ),
+
+  // Risks (§6.4 / §8.9)
+  listRisks: (opts: ApiClientOptions, contractId: string, status?: string) =>
+    request<{ items: ApiRisk[] }>(`/api/contracts/${contractId}/risks`, {
+      ...opts,
+      query: { status },
+    }),
+  createRisk: (opts: ApiClientOptions, contractId: string, body: Record<string, unknown>) =>
+    request<ApiRisk>(`/api/contracts/${contractId}/risks`, {
+      ...opts,
+      method: 'POST',
+      body,
+    }),
+
+  // Claims (§6.12 / §8.9)
+  listClaims: (opts: ApiClientOptions, contractId: string) =>
+    request<{ items: ApiClaim[] }>(`/api/contracts/${contractId}/claims`, opts),
+  createClaim: (opts: ApiClientOptions, contractId: string, body: Record<string, unknown>) =>
+    request<ApiClaim>(`/api/contracts/${contractId}/claims`, {
+      ...opts,
+      method: 'POST',
+      body,
+    }),
+  transitionClaim: (
+    opts: ApiClientOptions,
+    contractId: string,
+    claimId: string,
+    target: string,
+    extra?: Record<string, unknown>,
+  ) =>
+    request<ApiClaim>(
+      `/api/contracts/${contractId}/claims/${claimId}/transitions`,
+      { ...opts, method: 'POST', body: { target, ...extra } },
+    ),
 };
